@@ -1,18 +1,16 @@
 package com.joy_a_more.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.util.List;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class ExtraAttributes {
-    private Variant defaultVariant;
-    private List<Variant> variants;
-    private List<Shape> shapes;
+    private CakeAttribute cakeAttribute;
+    private ToyAttribute toyAttribute;
+    private GiftAttribute giftAttribute;
+    private ChocolateAttribute chocolateAttribute;
+    private DecorationAttribute decorationAttribute;
 }

@@ -12,16 +12,19 @@ import java.util.List;
 public class Product {
     private String id;
     private String name;
+    private List<String> subCategoryIds;
+    private String productType;
+    private List<String> imageUrls;
     private List<String> productDescription;
     private List<String> careInstruction;
     private List<String> deliveryInformation;
-    private String categoryId;
-    private List<String> imageUrls;
+    private List<String> tags;
     private boolean isAvailable;
     private int stockQuantity;
-    private List<String> tags;
     private int popularityScore;
     private List<Review> reviews;
     private ExtraAttributes extraAttributes;
     private Date createdAt;
+    private Date updatedAt;
+    private String createdBy;
 }
