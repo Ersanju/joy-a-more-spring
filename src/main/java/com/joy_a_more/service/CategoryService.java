@@ -5,6 +5,7 @@ import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.WriteBatch;
 import com.google.firebase.cloud.FirestoreClient;
 import com.joy_a_more.model.Category;
+import com.joy_a_more.utils.Util;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class CategoryService {
 
     private static final String COLLECTION_NAME = "categories";
 
-public String addMultipleCategories(List<Category> categories) throws ExecutionException, InterruptedException {
+    public String addMultipleCategories(List<Category> categories) throws ExecutionException, InterruptedException {
         Firestore db = FirestoreClient.getFirestore();
         WriteBatch batch = db.batch();
 
@@ -28,6 +29,10 @@ public String addMultipleCategories(List<Category> categories) throws ExecutionE
                 return "Each category must have a non-empty ID";
             }
             category.setCreatedAt(new Date());
+
+            // Convert Google Drive link for imageUrl
+            category.setImageUrl(Util.convertGoogleDriveLink(category.getImageUrl()));
+
             DocumentReference docRef = db.collection(COLLECTION_NAME).document(category.getId());
             batch.set(docRef, category);
             insertedIds.add(category.getId());

@@ -3,6 +3,7 @@ package com.joy_a_more.service;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import com.joy_a_more.model.Product;
+import com.joy_a_more.utils.Util;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,6 +27,14 @@ public class ProductService {
                 return "Each product must have a non-empty ID";
             }
             product.setCreatedAt(new Date());
+
+            // Use Util method to convert image URLs
+            List<String> convertedUrls = new ArrayList<>();
+            for (String imageUrl : product.getImageUrls()) {
+                convertedUrls.add(Util.convertGoogleDriveLink(imageUrl));
+            }
+            product.setImageUrls(convertedUrls);
+
             DocumentReference docRef = db.collection(COLLECTION_NAME).document(product.getId());
             batch.set(docRef, product);
             insertedIds.add(product.getId());
